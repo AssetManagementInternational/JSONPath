@@ -1,6 +1,11 @@
 ## ?
 
 
+## Dec 21, 2015
+- Feature: Allow use of functions for filtering to avoid use of eval by using the new functionMap argument.
+- Fix: Pass in self || this, fixes the script in hosted engines like ClearScript or Rhino where self may not be defined.
+- Version 0.13.1
+
 ## Dec 13, 2015
 - Breaking change (from version 0.11): Silently strip `~` and `^` operators and type operators such as `@string()` in `JSONPath.toPathString()` calls.
 - Breaking change: Remove `Array.isArray` polyfill as no longer supporting IE <= 8
