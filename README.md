@@ -45,7 +45,7 @@ The properties that can be supplied on the options object or evaluate method (as
 
 - ***path*** (**required**) - The JSONPath expression as a (normalized or unnormalized) string or array
 - ***json*** (**required**) - The JSON object to evaluate (whether of null, boolean, number, string, object, or array type).
-- ***functionMap*** (**default:{}**) - A map of named functions to use as like script expressions to avoid the use of eval.
+- ***exec*** (**default: (none)**) - A function used to filter (takes a JSON object parsed from the path expression and the item it's being applied to). Avoids the use of eval.
 - ***autostart*** (**default: true**) - If this is supplied as `false`, one may call the `evaluate` method manually.
 - ***flatten*** (**default: false**) - Whether the returned array of results will be flattened to a single dimension array.
 - ***resultType*** (**default: "value"**) - Can be case-insensitive form of "value", "path", "pointer", "parent", or "parentProperty" to determine respectively whether to return results as the values of the found items, as their absolute paths, as [JSON Pointers](http://www.rfc-base.org/txt/rfc-6901.txt) to the absolute paths, as their parent objects, or as their parent's property name. If set to "all", all of these types will be returned on an object with the type as key name.
@@ -164,7 +164,7 @@ XPath               | JSONPath               | Result                           
 //book/*[self::category\|self::author] or //book/(category,author) in XPath 2.0 | $..book[0][category,author]| The categories and authors of all books |
 //book[isbn]        | $..book[?(@.isbn)]     | Filter all books with an ISBN number     | To access a property with a special character, utilize `[?@['...']]` for the filter (this particular feature is not present in the original spec)
 //book[price<10]    | $..book[?(@.price<10)] | Filter all books cheaper than 10     |
-//book[price<10]    | $..book[?{under10}] | Filter all books cheaper than 10     | This calls the function named 'under10' in the functionMap argument. { under10 : function(item){ return item.price<10; } }
+//book[price<10]    | $..book[?{"price":"10"}] | Filter all books cheaper than 10     | The exec argument is called with the JSON object and the book object. { exec : function(arg, item){ return item.price<arg.price; } }
 //\*[name() = 'price' and . != 8.95] | $..\*[?(@property === 'price' && @ !== 8.95)] | Obtain all property values of objects whose property is price and which does not equal 8.95 |
 /                   | $                      | The root of the JSON object (i.e., the whole object itself) |
 //\*/\*\|//\*/\*/text()  | $..*                   | All Elements (and text) beneath root in an XML document. All members of a JSON structure beneath the root. |

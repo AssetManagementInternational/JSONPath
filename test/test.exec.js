@@ -40,59 +40,69 @@ var json = {"store": {
 module.exports = testCase({
 
     // ============================================================================
-    'FunctionMap filter': function (test) {
+    'Exec filter': function (test) {
     // ============================================================================
         test.expect(1);
 		
 		var expected = [ json.store.book[0], json.store.book[1], json.store.book[2] ]
 		
-		var booksLessThan20 = function(item){return item.price < 20};
-       
-        var result = jsonpath({json: json, path: '$.store.book[?{lessThan20}]', functionMap:{lessThan20: booksLessThan20}});
+		var result = jsonpath({
+			json:json,
+			path:"$.store.book[?{\"price\":20}]",
+			exec:function(arg, item){ return item.price < arg.price}
+		});
 		
         test.deepEqual(expected, result);
 
         test.done();
     },
 	 // ============================================================================
-    'FunctionMap select': function (test) {
+    'Exec select': function (test) {
     // ============================================================================
         test.expect(1);
 		
 		var expected = [ "red" ]
-		
-		var color = function(item){return "color"};
        
-        var result = jsonpath({json: json, path: '$.store.bicycle[{getColor}]', functionMap:{getColor: color}});
+        var result = jsonpath({
+			json: json,
+			path: '$.store.bicycle[{"prop":"color"}]', 
+			exec:function(arg){ return arg.prop; }
+		});
 		
         test.deepEqual(expected, result);
 
         test.done();
     },
 	 // ============================================================================
-    'FunctionMap as argument': function (test) {
+    'Exec as argument': function (test) {
     // ============================================================================
         test.expect(1);
 		
 		var expected = [ "red" ]
-		
-		var color = function(item){return "color"};
        
-		var result = jsonpath({json: json, path: '$.store.bicycle[{getColor}]'}, null, null, null, null, {getColor: color});
+		var result = jsonpath({json: json, path: '$.store.bicycle[{"prop":"color"}]'}, null, null, null, null, function(arg){ return arg.prop; });
 		
         test.deepEqual(expected, result);
 
         test.done();
     },
 	 // ============================================================================
-    'FunctionMap throws': function (test) {
+    'Exec throws when callback not supplied': function (test) {
     // ============================================================================
         test.expect(1);
        
-		test.throws(
-			function(){jsonpath({json: json, path: '$.store.bicycle[{getColor}]'});});
+		var foundMessage;
+		
+		 try{
+			jsonpath({json: json, path: '$.store.bicycle[{"prop":"color"}]'});
+		 }
+		 catch(e){
+			foundMessage = e.message;
+		 }
 
-        test.done();
+		 test.equal(foundMessage, "No callback for exec parameter.");
+
+         test.done();
     }
 });
 }());
