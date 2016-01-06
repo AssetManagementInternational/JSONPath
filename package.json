@@ -23,19 +23,27 @@
             "name": "Brett Zamir",
             "email": "brettz9@yahoo.com"
         },
-        {
-            "name": "Richard Schneider",
-            "email": "makaretu@gmail.com"
-        }
+		{
+			"name": "Richard Schneider",
+			"email": "makaretu@gmail.com"
+		},
+		{
+			"name": "Blake Lindsay",
+			"email": "blake@gotmonkey.net"
+		},
+		{
+			"name": "Eric Spencer",
+			"email": "github@thoughtboom.com"
+		}
     ],
     "license": "MIT",
     "version": "0.13.1",
     "repository": {
         "type": "git",
-        "url": "git://github.com/s3u/JSONPath.git"
+        "url": "git://github.com/AssetManagementInternational/JSONPath.git"
     },
-    "bugs": "https://github.com/s3u/JSONPath/issues/",
-    "homepage": "https://github.com/s3u/JSONPath",
+    "bugs": "https://github.com/AssetManagementInternational/JSONPath/issues/",
+    "homepage": "https://github.com/AssetManagementInternational/JSONPath",
     "main": "./lib/jsonpath",
     "dependencies": {},
     "engines": {
