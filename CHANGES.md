@@ -1,5 +1,8 @@
 ## ?
 
+## Jan 5, 2016
+- Avoid double-encoding path in results
+- Version 0.13.1
 
 ## Dec 21, 2015
 - Feature: Allow use of functions for filtering to avoid use of eval by using the new functionMap argument.
