@@ -35,6 +35,13 @@ module.exports = testCase({
         var result = jsonpath({json: json, path: 'store.books', flatten: true, wrap: false});
         test.deepEqual(expected, result);
         test.done();
+    },
+
+	'get reverse arr': function (test) {
+        var expected = [8.93, 8.94, 8.95];
+        var result = jsonpath({ json: json, path: 'store.book.price[::-1]', flatten: true, wrap: false });
+        test.deepEqual(expected, result);
+        test.done();
     }
 });
 }());

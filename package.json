@@ -35,6 +35,10 @@
       "name": "Eric Spencer",
       "email": "github@thoughtboom.com"
     },
+	{
+      "name": "Ella Quinn Lagerquist",
+      "email": "lq@sakotai.net"	
+	}
   ],
   "license": "MIT",
   "version": "0.15.0",
